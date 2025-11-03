@@ -33,9 +33,9 @@ export default function Navbar({ darkMode, setDarkMode, scrolled }: NavbarProps)
             "about",
             "experience",
             "education",
-            "skills",
-            "learning",
-            "projects",
+            // "skills",
+            // "learning",
+            // "projects",
             "contact",
           ].map((section) => (
             <Link

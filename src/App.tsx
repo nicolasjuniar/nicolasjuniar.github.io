@@ -32,9 +32,9 @@ export default function App() {
         <About />
         <Experience />
         <Education />
-        <Skills />
-        <Learning />
-        <Projects />
+        {/* <Skills /> */}
+        {/* <Learning /> */}
+        {/* <Projects /> */}
         <Contact />
       </main>
       <Footer />

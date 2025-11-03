@@ -2,9 +2,9 @@ import { motion } from "framer-motion";
 
 export default function Hero() {
   return (
-    <section 
-        id="home" 
-        className="flex flex-col justify-center items-center text-center h-screen px-6 md:px-0"
+    <section
+      id="home"
+      className="flex flex-col justify-center items-center text-center h-screen px-6 md:px-0"
     >
       <motion.h2
         initial={{ opacity: 0, y: -10 }}
@@ -20,8 +20,7 @@ export default function Hero() {
         transition={{ delay: 0.3 }}
         className="text-lg md:text-xl max-w-2xl"
       >
-        Android Developer passionate about Clean Architecture and backend
-        development using Spring Boot & Go.
+        An Android Developer passionate about exploring and continuous learning.
       </motion.p>
     </section>
   );
