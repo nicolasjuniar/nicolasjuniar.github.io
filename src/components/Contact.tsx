@@ -16,7 +16,7 @@ export default function Contact() {
         <p>
           Phone:{" "}
           <a
-            href="https://wa.me/087724192339"
+            href="https://wa.me/6287724192339"
             className="text-teal-400 hover:underline"
           >
             087724192339

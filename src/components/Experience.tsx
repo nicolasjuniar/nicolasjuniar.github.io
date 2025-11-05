@@ -36,8 +36,8 @@ export default function Experience() {
             <li>
               Actively participated in <strong>Agile Sprint cycles</strong>,
               releasing new app versions to{" "}
-              <strong>Google Play Store every two weeks</strong>
-              using <strong>Gradle Play Publisher</strong>.
+              <strong>Google Play Store every two weeks</strong> using{" "}
+              <strong>Gradle Play Publisher</strong>.
             </li>
             <li>
               Created and maintained{" "}
@@ -57,9 +57,8 @@ export default function Experience() {
               following the latest Android releases.
             </li>
             <li>
-              Integrated a wide range of{" "}
-              <strong>modern libraries and tools</strong> to improve development
-              efficiency, performance, and security:
+              Integrated a wide range of <strong>libraries and tools</strong> to
+              improve development efficiency, performance, and security:
               <ul className="list-disc list-inside ml-6 mt-2 space-y-2 text-gray-400">
                 <li>
                   <strong>Dependency Injection:</strong> Koin
