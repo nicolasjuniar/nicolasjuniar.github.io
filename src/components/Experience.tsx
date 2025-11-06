@@ -61,6 +61,9 @@ export default function Experience() {
               improve development efficiency, performance, and security:
               <ul className="list-disc list-inside ml-6 mt-2 space-y-2 text-gray-400">
                 <li>
+                  <strong>Programming Languages:</strong> Kotlin
+                </li>
+                <li>
                   <strong>Dependency Injection:</strong> Koin
                 </li>
                 <li>
@@ -73,26 +76,28 @@ export default function Experience() {
                   <strong>Paging & Caching:</strong> Paging
                 </li>
                 <li>
-                  <strong>Testing & Quality:</strong> Mockito, JaCoCo, Detekt,
-                  SonarQube
+                  <strong>Testing & Quality:</strong> JUnit, Mockito, JaCoCo,
+                  Detekt, SonarQube
                 </li>
                 <li>
                   <strong>Analytics & Monitoring:</strong> MoEngage, NewRelic,
                   Firebase Crashlytics
                 </li>
                 <li>
-                  <strong>UI & Visualization:</strong> MPAndroidChart, Glide
+                  <strong>UI & Visualization:</strong> ConstraintLayout,
+                  MPAndroidChart, Glide
                 </li>
                 <li>
                   <strong>Security:</strong> Biometric, Encrypted
                   SharedPreferences, RSA encryption/decryption, DexGuard,
-                  ProGuard
-                </li>
-                <li>
-                  <strong>Debugging:</strong> Chucker
+                  ProGuard, reCAPTCHA v2
                 </li>
                 <li>
                   <strong>Remote Config:</strong> Firebase Remote Config
+                </li>
+                <li>
+                  <strong>Utility & Support Libraries</strong>: Joda-Time, Gson,
+                  Timber, Chucker, Google Play Publisher
                 </li>
               </ul>
             </li>
@@ -110,8 +115,9 @@ export default function Experience() {
             </li>
             <li>
               Worked closely with UI/UX designers using <strong>Zeplin</strong>{" "}
-              and <strong>Figma</strong> for design implementation and
-              consistency.
+              and <strong>Figma</strong> to implement{" "}
+              <strong>Google Material Design</strong> guidelines and ensure
+              consistent, user-friendly interfaces.
             </li>
           </ul>
         </div>

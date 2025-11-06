@@ -28,6 +28,22 @@ export default function Education() {
             to create simple RESTful APIs for data communication between the two
             applications.
           </p>
+          <a
+            href="https://github.com/nicolasjuniar/porkat"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-teal-400 text-sm hover:underline mr-4"
+          >
+            View Android Project →
+          </a>
+          <a
+            href="https://github.com/nicolasjuniar/porkat_web"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-teal-400 text-sm hover:underline"
+          >
+            View Backend Project →
+          </a>
         </div>
         <div>
           <h4 className="text-xl font-semibold text-teal-300">
