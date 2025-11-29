@@ -44,7 +44,7 @@ export default function App() {
         <Education />
         {/* <Skills /> */}
         {/* <Learning /> */}
-        {/* <Projects /> */}
+        <Projects />
         <Contact />
       </main>
       <Footer />

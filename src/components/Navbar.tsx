@@ -1,4 +1,3 @@
-
 import { Link } from "react-scroll";
 import { FaSun, FaMoon } from "react-icons/fa";
 
@@ -8,7 +7,11 @@ interface NavbarProps {
   scrolled: boolean;
 }
 
-export default function Navbar({ darkMode, setDarkMode, scrolled }: NavbarProps) {
+export default function Navbar({
+  darkMode,
+  setDarkMode,
+  scrolled,
+}: NavbarProps) {
   return (
     <nav
       className={`fixed w-full z-50 transition-all duration-300 ${
@@ -35,7 +38,7 @@ export default function Navbar({ darkMode, setDarkMode, scrolled }: NavbarProps)
             "education",
             // "skills",
             // "learning",
-            // "projects",
+            "projects",
             "contact",
           ].map((section) => (
             <Link
