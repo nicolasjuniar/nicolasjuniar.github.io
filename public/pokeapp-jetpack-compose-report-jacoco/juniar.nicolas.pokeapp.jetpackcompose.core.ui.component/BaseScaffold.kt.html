@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BaseScaffold.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PokeApp Jetpack Compose</a> &gt; <a href="index.source.html" class="el_package">juniar.nicolas.pokeapp.jetpackcompose.core.ui.component</a> &gt; <span class="el_source">BaseScaffold.kt</span></div><h1>BaseScaffold.kt</h1><pre class="source lang-java linenums">package juniar.nicolas.pokeapp.jetpackcompose.core.ui.component
+
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+
+<span class="nc" id="L16">@OptIn(ExperimentalMaterial3Api::class)</span>
+@Composable
+fun BaseScaffold(
+<span class="nc bnc" id="L19" title="All 2 branches missed.">    modifier: Modifier = Modifier,</span>
+<span class="nc bnc" id="L20" title="All 2 branches missed.">    title: String? = null,</span>
+<span class="nc bnc" id="L21" title="All 2 branches missed.">    onBackClick: (() -&gt; Unit)? = null,</span>
+    isLoading: Boolean,
+    content: @Composable () -&gt; Unit
+<span class="nc bnc" id="L24" title="All 32 branches missed.">) {</span>
+<span class="nc bnc" id="L25" title="All 2 branches missed.">    Scaffold(</span>
+<span class="nc" id="L26">        modifier = modifier,</span>
+<span class="nc" id="L27">        topBar = {</span>
+<span class="nc bnc" id="L28" title="All 6 branches missed.">            if (title != null || onBackClick != null) {</span>
+<span class="nc" id="L29">                TopAppBar(</span>
+<span class="nc" id="L30">                    title = {</span>
+<span class="nc bnc" id="L31" title="All 4 branches missed.">                        if (title != null) {</span>
+<span class="nc" id="L32">                            Text(text = title)</span>
+                        }
+<span class="nc" id="L34">                    },</span>
+<span class="nc" id="L35">                    navigationIcon = {</span>
+<span class="nc bnc" id="L36" title="All 4 branches missed.">                        if (onBackClick != null) {</span>
+<span class="nc" id="L37">                            IconButton(onClick = onBackClick) {</span>
+<span class="nc bnc" id="L38" title="All 2 branches missed.">                                Icon(</span>
+<span class="nc" id="L39">                                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,</span>
+<span class="nc" id="L40">                                    contentDescription = &quot;Back&quot;</span>
+                                )
+<span class="nc" id="L42">                            }</span>
+                        }
+<span class="nc" id="L44">                    }</span>
+                )
+            }
+<span class="nc" id="L47">        },</span>
+<span class="nc" id="L48">        content = { innerPadding -&gt;</span>
+<span class="nc" id="L49">            Box(</span>
+<span class="nc" id="L50">                modifier = Modifier</span>
+<span class="nc" id="L51">                    .padding(innerPadding)</span>
+            ) {
+<span class="nc" id="L53">                content()</span>
+
+<span class="nc bnc" id="L55" title="All 2 branches missed.">                if (isLoading) {</span>
+<span class="nc" id="L56">                    LoadingOverlay()</span>
+                }
+<span class="nc" id="L58">            }</span>
+<span class="nc" id="L59">        })</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">}</span>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

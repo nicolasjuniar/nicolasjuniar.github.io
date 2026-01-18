@@ -9,7 +9,7 @@ export default function Projects() {
       desc: "Simple App with Latest Android Architecture Implementation",
       stack: "Clean Architecture, Jetpack Compose, Hilt",
       link: "https://github.com/nicolasjuniar/pokeapp-jetpack-compose",
-      status: "in progress",
+      status: "done",
     },
     {
       title: "Simple OTA (Over-The-Air) Android",

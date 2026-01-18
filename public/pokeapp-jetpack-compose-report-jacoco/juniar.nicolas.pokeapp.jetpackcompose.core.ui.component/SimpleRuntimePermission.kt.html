@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SimpleRuntimePermission.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PokeApp Jetpack Compose</a> &gt; <a href="index.source.html" class="el_package">juniar.nicolas.pokeapp.jetpackcompose.core.ui.component</a> &gt; <span class="el_source">SimpleRuntimePermission.kt</span></div><h1>SimpleRuntimePermission.kt</h1><pre class="source lang-java linenums">package juniar.nicolas.pokeapp.jetpackcompose.core.ui.component
+
+import android.content.pm.PackageManager
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.platform.LocalContext
+import androidx.core.content.ContextCompat
+
+<span class="nc" id="L11">@Composable</span>
+fun SimpleRuntimePermission(
+    permission: String,
+    onGranted: () -&gt; Unit,
+    onDenied: () -&gt; Unit
+<span class="nc bnc" id="L16" title="All 18 branches missed.">) {</span>
+<span class="nc" id="L17">    val context = LocalContext.current</span>
+
+<span class="nc" id="L19">    val launcher = rememberLauncherForActivityResult(</span>
+<span class="nc" id="L20">        ActivityResultContracts.RequestPermission()</span>
+<span class="nc bnc" id="L21" title="All 4 branches missed.">    ) { granted -&gt;</span>
+<span class="nc bnc" id="L22" title="All 2 branches missed.">        if (granted) {</span>
+<span class="nc" id="L23">            onGranted()</span>
+        } else {
+<span class="nc" id="L25">            onDenied()</span>
+        }
+<span class="nc" id="L27">    }</span>
+
+<span class="nc bnc" id="L29" title="All 6 branches missed.">    LaunchedEffect(Unit) {</span>
+<span class="nc bnc" id="L30" title="All 2 branches missed.">        val isGranted = ContextCompat.checkSelfPermission(context, permission) ==</span>
+                PackageManager.PERMISSION_GRANTED
+
+<span class="nc bnc" id="L33" title="All 2 branches missed.">        if (!isGranted) {</span>
+<span class="nc" id="L34">            launcher.launch(permission)</span>
+        }
+<span class="nc" id="L36">    }</span>
+<span class="nc bnc" id="L37" title="All 2 branches missed.">}</span>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DetailPokemonResponse.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PokeApp Jetpack Compose</a> &gt; <a href="index.source.html" class="el_package">juniar.nicolas.pokeapp.jetpackcompose.core.data.dto</a> &gt; <span class="el_source">DetailPokemonResponse.kt</span></div><h1>DetailPokemonResponse.kt</h1><pre class="source lang-java linenums">package juniar.nicolas.pokeapp.jetpackcompose.core.data.dto
+
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+
+<span class="nc" id="L6">@Serializable</span>
+<span class="nc" id="L7">data class DetailPokemonResponse(</span>
+<span class="nc" id="L8">    @SerialName(&quot;id&quot;)</span>
+    val id: Int,
+<span class="nc" id="L10">    @SerialName(&quot;name&quot;)</span>
+    val name: String,
+<span class="nc" id="L12">    @SerialName(&quot;height&quot;)</span>
+    val height: Int,
+<span class="nc" id="L14">    @SerialName(&quot;weight&quot;)</span>
+    val weight: Int,
+<span class="nc" id="L16">    @SerialName(&quot;base_experience&quot;)</span>
+    val baseExperience: Int,
+<span class="nc" id="L18">    @SerialName(&quot;types&quot;)</span>
+    val types: List&lt;PokemonType&gt;,
+<span class="nc" id="L20">    @SerialName(&quot;stats&quot;)</span>
+    val stats: List&lt;PokemonStat&gt;,
+<span class="nc" id="L22">    @SerialName(&quot;abilities&quot;)</span>
+    val abilities: List&lt;PokemonAbility&gt;,
+)
+
+<span class="nc" id="L26">@Serializable</span>
+<span class="nc" id="L27">data class PokemonType(</span>
+<span class="nc" id="L28">    @SerialName(&quot;slot&quot;)</span>
+    val slot: Int,
+<span class="nc" id="L30">    @SerialName(&quot;type&quot;)</span>
+    val type: NamedResource
+)
+
+<span class="nc" id="L34">@Serializable</span>
+<span class="nc" id="L35">data class PokemonStat(</span>
+<span class="nc" id="L36">    @SerialName(&quot;base_stat&quot;)</span>
+    val baseStat: Int,
+<span class="nc" id="L38">    @SerialName(&quot;stat&quot;)</span>
+    val stat: NamedResource
+)
+
+<span class="nc" id="L42">@Serializable</span>
+<span class="nc" id="L43">data class PokemonAbility(</span>
+<span class="nc" id="L44">    @SerialName(&quot;ability&quot;)</span>
+    val ability: NamedResource,
+<span class="nc" id="L46">    @SerialName(&quot;is_hidden&quot;)</span>
+    val isHidden: Boolean
+)
+
+<span class="nc" id="L50">@Serializable</span>
+<span class="nc" id="L51">data class NamedResource(</span>
+<span class="nc" id="L52">    @SerialName(&quot;name&quot;)</span>
+    val name: String,
+<span class="nc" id="L54">    @SerialName(&quot;url&quot;)</span>
+    val url: String
+)
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

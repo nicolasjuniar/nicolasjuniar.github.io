@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DashboardContent.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PokeApp Jetpack Compose</a> &gt; <a href="index.source.html" class="el_package">juniar.nicolas.pokeapp.jetpackcompose.feature.dashboard.presentation.dashboard</a> &gt; <span class="el_source">DashboardContent.kt</span></div><h1>DashboardContent.kt</h1><pre class="source lang-java linenums">package juniar.nicolas.pokeapp.jetpackcompose.feature.dashboard.presentation.dashboard
+
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
+import juniar.nicolas.pokeapp.jetpackcompose.core.common.Screen
+import juniar.nicolas.pokeapp.jetpackcompose.core.shared.PreviewCameraViewmodel
+import juniar.nicolas.pokeapp.jetpackcompose.core.ui.component.SimpleAlertDialog
+import juniar.nicolas.pokeapp.jetpackcompose.core.ui.model.NavItem
+import juniar.nicolas.pokeapp.jetpackcompose.feature.dashboard.presentation.favorite.FavoriteScreen
+import juniar.nicolas.pokeapp.jetpackcompose.feature.dashboard.presentation.list.ListScreen
+import juniar.nicolas.pokeapp.jetpackcompose.feature.dashboard.presentation.profile.ProfileScreen
+
+<span class="nc bnc" id="L30" title="All 8 branches missed.">@OptIn(ExperimentalMaterial3Api::class)</span>
+@Composable
+fun DashboardContent(
+<span class="nc bnc" id="L33" title="All 2 branches missed.">    state: DashboardState = DashboardState(),</span>
+<span class="nc bnc" id="L34" title="All 2 branches missed.">    onEvent: (DashboardEvent) -&gt; Unit = {},</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">    navItems: List&lt;NavItem&gt; = listOf(),</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">    bottomNavController: NavHostController = rememberNavController(),</span>
+<span class="nc bnc" id="L37" title="All 2 branches missed.">    openDetailScreen: (pokedexNumber: Int) -&gt; Unit = {},</span>
+<span class="nc bnc" id="L38" title="All 2 branches missed.">    openCameraScreen: () -&gt; Unit = {},</span>
+<span class="nc" id="L39">    previewCameraViewModel: PreviewCameraViewmodel = hiltViewModel()</span>
+<span class="nc bnc" id="L40" title="All 52 branches missed.">) {</span>
+<span class="nc" id="L41">    Scaffold(</span>
+<span class="nc" id="L42">        topBar = {</span>
+<span class="nc bnc" id="L43" title="All 4 branches missed.">            TopAppBar(title = { Text(&quot;Hello ${state.username}&quot;) }, actions = {</span>
+<span class="nc bnc" id="L44" title="All 2 branches missed.">                TextButton(onClick = { onEvent(DashboardEvent.LogoutTextClick) }) {</span>
+<span class="nc bnc" id="L45" title="All 2 branches missed.">                    Text(&quot;Logout&quot;)</span>
+<span class="nc" id="L46">                }</span>
+<span class="nc" id="L47">            })</span>
+<span class="nc" id="L48">        },</span>
+
+<span class="nc" id="L50">        bottomBar = {</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">            NavigationBar {</span>
+<span class="nc" id="L52">                val currentDestination =</span>
+<span class="nc bnc" id="L53" title="All 4 branches missed.">                    bottomNavController.currentBackStackEntryAsState().value?.destination?.route</span>
+<span class="nc" id="L54">                navItems.forEach { item -&gt;</span>
+<span class="nc" id="L55">                    NavigationBarItem(selected = currentDestination == item.route, onClick = {</span>
+<span class="nc" id="L56">                        bottomNavController.navigate(item.route) {</span>
+<span class="nc" id="L57">                            popUpTo(bottomNavController.graph.startDestinationId)</span>
+<span class="nc" id="L58">                            launchSingleTop = true</span>
+<span class="nc" id="L59">                        }</span>
+<span class="nc" id="L60">                    }, icon = {</span>
+<span class="nc bnc" id="L61" title="All 2 branches missed.">                        Icon(</span>
+<span class="nc bnc" id="L62" title="All 2 branches missed.">                            imageVector = if (currentDestination == item.route) item.selectedIcon</span>
+<span class="nc" id="L63">                            else item.unselectedIcon, contentDescription = item.label</span>
+                        )
+<span class="nc bnc" id="L65" title="All 2 branches missed.">                    }, label = { Text(item.label) })</span>
+<span class="nc" id="L66">                }</span>
+<span class="nc" id="L67">            }</span>
+<span class="nc" id="L68">        }) { innerPadding -&gt;</span>
+<span class="nc bnc" id="L69" title="All 2 branches missed.">        NavHost(</span>
+<span class="nc" id="L70">            navController = bottomNavController,</span>
+<span class="nc" id="L71">            startDestination = Screen.List.route,</span>
+<span class="nc" id="L72">            modifier = Modifier.padding(innerPadding)</span>
+<span class="nc" id="L73">        ) {</span>
+<span class="nc" id="L74">            composable(Screen.List.route) {</span>
+<span class="nc bnc" id="L75" title="All 2 branches missed.">                ListScreen(</span>
+<span class="nc" id="L76">                    modifier = Modifier.fillMaxSize(), openDetailScreen = {</span>
+<span class="nc" id="L77">                        openDetailScreen(it)</span>
+<span class="nc" id="L78">                    })</span>
+<span class="nc" id="L79">            }</span>
+<span class="nc" id="L80">            composable(Screen.Favorite.route) {</span>
+<span class="nc bnc" id="L81" title="All 2 branches missed.">                FavoriteScreen(</span>
+<span class="nc" id="L82">                    modifier = Modifier.fillMaxSize(), openDetailScreen = {</span>
+<span class="nc" id="L83">                        openDetailScreen(it)</span>
+<span class="nc" id="L84">                    })</span>
+<span class="nc" id="L85">            }</span>
+<span class="nc" id="L86">            composable(Screen.Profile.route) {</span>
+<span class="nc bnc" id="L87" title="All 2 branches missed.">                ProfileScreen(</span>
+<span class="nc" id="L88">                    openCameraScreen = {</span>
+<span class="nc" id="L89">                        openCameraScreen()</span>
+<span class="nc" id="L90">                    },</span>
+<span class="nc" id="L91">                    previewCameraViewmodel = previewCameraViewModel</span>
+                )
+<span class="nc" id="L93">            }</span>
+<span class="nc" id="L94">        }</span>
+<span class="nc" id="L95">    }</span>
+
+<span class="nc bnc" id="L97" title="All 4 branches missed.">    if (state.showLogoutDialog) {</span>
+<span class="nc" id="L98">        SimpleAlertDialog(</span>
+<span class="nc" id="L99">            &quot;Confirm Logout&quot;,</span>
+<span class="nc" id="L100">            &quot;Are you sure you want to logout&quot;,</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">            onDismiss = {</span>
+<span class="nc" id="L102">                onEvent(DashboardEvent.OnDismissLogoutDialog)</span>
+<span class="nc" id="L103">            },</span>
+<span class="nc bnc" id="L104" title="All 2 branches missed.">            confirmOnClick = {</span>
+<span class="nc" id="L105">                onEvent(DashboardEvent.ConfirmLogoutClick)</span>
+<span class="nc" id="L106">            }</span>
+        )
+    }
+<span class="nc bnc" id="L109" title="All 2 branches missed.">}</span>
+
+<span class="nc" id="L111">@Preview</span>
+@Composable
+<span class="nc bnc" id="L113" title="All 6 branches missed.">fun DashboardContentPreview() {</span>
+<span class="nc bnc" id="L114" title="All 2 branches missed.">    DashboardContent()</span>
+<span class="nc bnc" id="L115" title="All 2 branches missed.">}</span>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

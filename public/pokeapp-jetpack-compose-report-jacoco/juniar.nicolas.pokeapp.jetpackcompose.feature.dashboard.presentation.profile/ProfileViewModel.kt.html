@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProfileViewModel.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PokeApp Jetpack Compose</a> &gt; <a href="index.source.html" class="el_package">juniar.nicolas.pokeapp.jetpackcompose.feature.dashboard.presentation.profile</a> &gt; <span class="el_source">ProfileViewModel.kt</span></div><h1>ProfileViewModel.kt</h1><pre class="source lang-java linenums">package juniar.nicolas.pokeapp.jetpackcompose.feature.dashboard.presentation.profile
+
+import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import juniar.nicolas.pokeapp.jetpackcompose.core.common.BaseViewModel
+import juniar.nicolas.pokeapp.jetpackcompose.core.common.DefaultSignal
+import juniar.nicolas.pokeapp.jetpackcompose.core.domain.usecase.GetIsDarkThemeUseCase
+import juniar.nicolas.pokeapp.jetpackcompose.core.domain.usecase.GetLoggedUsernameUseCase
+import juniar.nicolas.pokeapp.jetpackcompose.core.domain.usecase.UpdateDarkThemeUseCase
+import juniar.nicolas.pokeapp.jetpackcompose.feature.dashboard.domain.GetUserProfilePictureUseCase
+import juniar.nicolas.pokeapp.jetpackcompose.feature.dashboard.domain.UpdateUserProfilePictureUseCase
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+
+@HiltViewModel
+<span class="fc" id="L17">class ProfileViewModel @Inject constructor(</span>
+    getUserProfilePictureUseCase: GetUserProfilePictureUseCase,
+    getLoggedUsernameUseCase: GetLoggedUsernameUseCase,
+<span class="fc" id="L20">    private val updateUserProfilePictureUseCase: UpdateUserProfilePictureUseCase,</span>
+    getIsDarkThemeUseCase: GetIsDarkThemeUseCase,
+<span class="fc" id="L22">    private val updateDarkThemeUseCase: UpdateDarkThemeUseCase</span>
+<span class="fc" id="L23">) : BaseViewModel&lt;ProfileState, ProfileEvent, DefaultSignal&gt;(ProfileState()) {</span>
+
+
+<span class="fc" id="L26">    init {</span>
+<span class="fc" id="L27">        viewModelScope.launch {</span>
+<span class="fc" id="L28">            val username = getLoggedUsernameUseCase().first()</span>
+<span class="fc bfc" id="L29" title="All 4 branches covered.">            if (username.isNotEmpty()) {</span>
+<span class="fc" id="L30">                val uri = getUserProfilePictureUseCase.invoke(username)</span>
+<span class="fc" id="L31">                setState { copy(imageUri = uri, loggedUsername = username) }</span>
+            }
+<span class="fc" id="L33">            val isDarkTheme = getIsDarkThemeUseCase().first()</span>
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">            setState { copy(isDarkTheme = isDarkTheme) }</span>
+<span class="fc" id="L35">        }</span>
+<span class="fc" id="L36">    }</span>
+
+    override fun handleEvent(event: ProfileEvent) {
+<span class="fc" id="L39">        when (event) {</span>
+<span class="fc bfc" id="L40" title="All 2 branches covered.">            is ProfileEvent.ChangePictureClicked -&gt; {</span>
+<span class="fc" id="L41">                setState { copy(activeSheet = ProfileSheet.ChangeProfilePicture) }</span>
+            }
+
+<span class="fc bfc" id="L44" title="All 2 branches covered.">            is ProfileEvent.ChangePasswordClicked -&gt; {</span>
+<span class="fc" id="L45">                setState { copy(activeSheet = ProfileSheet.ChangePassword) }</span>
+            }
+
+<span class="fc bfc" id="L48" title="All 2 branches covered.">            is ProfileEvent.DismissBottomSheet -&gt; {</span>
+<span class="fc" id="L49">                setState { copy(activeSheet = null) }</span>
+            }
+
+<span class="fc bfc" id="L52" title="All 2 branches covered.">            is ProfileEvent.UpdateImageUri -&gt; {</span>
+<span class="fc" id="L53">                viewModelScope.launch {</span>
+                    val uri = event.imageUri
+                    setState {
+                        copy(imageUri = uri)
+                    }
+                    if (state.value.loggedUsername.isEmpty()) return@launch
+                    updateUserProfilePictureUseCase.invoke(uri, state.value.loggedUsername)
+                    sendSignal(DefaultSignal.ShowToast(&quot;Success Update Profile Picture&quot;))
+                }
+            }
+
+<span class="fc" id="L64">            is ProfileEvent.UpdateIsDarkTheme -&gt; {</span>
+<span class="fc" id="L65">                viewModelScope.launch {</span>
+                    setState { copy(isDarkTheme = event.isDarkTheme) }
+                    updateDarkThemeUseCase.invoke(event.isDarkTheme)
+                }
+            }
+        }
+<span class="fc" id="L71">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

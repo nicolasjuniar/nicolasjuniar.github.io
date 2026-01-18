@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DataStorePreference.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PokeApp Jetpack Compose</a> &gt; <a href="index.source.html" class="el_package">juniar.nicolas.pokeapp.jetpackcompose.core.data.datastore</a> &gt; <span class="el_source">DataStorePreference.kt</span></div><h1>DataStorePreference.kt</h1><pre class="source lang-java linenums">package juniar.nicolas.pokeapp.jetpackcompose.core.data.datastore
+
+import android.content.Context
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.preferencesDataStore
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+
+<span class="nc" id="L11">val Context.dataStore by preferencesDataStore(name = &quot;pokeapp_prefs&quot;)</span>
+
+<span class="nc" id="L13">class DataStorePreference(private val context: Context) {</span>
+    companion object {
+<span class="nc" id="L15">        private val LOGGED_USERNAME = stringPreferencesKey(&quot;logged_username&quot;)</span>
+<span class="nc" id="L16">        private val IS_DARK_THEME = booleanPreferencesKey(&quot;is_dark_theme&quot;)</span>
+    }
+
+    suspend fun saveLoggedUsername(username: String) {
+<span class="nc bnc" id="L20" title="All 2 branches missed.">        context.dataStore.edit {</span>
+<span class="nc" id="L21">            it[LOGGED_USERNAME] = username</span>
+<span class="nc" id="L22">        }</span>
+<span class="nc" id="L23">    }</span>
+
+    suspend fun updateIsDarkTheme(isDarkTheme: Boolean) {
+<span class="nc bnc" id="L26" title="All 2 branches missed.">        context.dataStore.edit {</span>
+<span class="nc" id="L27">            it[IS_DARK_THEME] = isDarkTheme</span>
+<span class="nc" id="L28">        }</span>
+<span class="nc" id="L29">    }</span>
+
+<span class="nc" id="L31">    fun getLoggedUsername(): Flow&lt;String&gt; = context.dataStore.data.map {</span>
+        it[LOGGED_USERNAME] ?: &quot;&quot;
+<span class="nc" id="L33">    }</span>
+
+<span class="nc" id="L35">    fun getIsDarkTheme(): Flow&lt;Boolean&gt; = context.dataStore.data.map {</span>
+        it[IS_DARK_THEME] ?: false
+<span class="nc" id="L37">    }</span>
+
+    suspend fun clearLoggedUsername() {
+<span class="nc bnc" id="L40" title="All 2 branches missed.">        context.dataStore.edit {</span>
+<span class="nc" id="L41">            it[LOGGED_USERNAME] = &quot;&quot;</span>
+<span class="nc" id="L42">        }</span>
+<span class="nc" id="L43">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

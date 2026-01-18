@@ -21,6 +21,11 @@ const router = createBrowserRouter([
   },
 ]);
 
+const isStaticReport = window.location.pathname.startsWith(
+  "/pokeapp-android-report-detekt"
+)
+
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <RouterProvider router={router} />
