@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LoginScreen.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PokeApp Jetpack Compose</a> &gt; <a href="index.source.html" class="el_package">juniar.nicolas.pokeapp.jetpackcompose.feature.login.presentation</a> &gt; <span class="el_source">LoginScreen.kt</span></div><h1>LoginScreen.kt</h1><pre class="source lang-java linenums">package juniar.nicolas.pokeapp.jetpackcompose.feature.login.presentation
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import juniar.nicolas.pokeapp.jetpackcompose.core.common.showToast
+import juniar.nicolas.pokeapp.jetpackcompose.core.ui.component.LoadingOverlay
+import juniar.nicolas.pokeapp.jetpackcompose.core.ui.component.PasswordTextField
+
+<span class="nc bnc" id="L33" title="All 4 branches missed.">@Composable</span>
+fun LoginScreen(
+<span class="nc bnc" id="L35" title="All 2 branches missed.">    modifier: Modifier = Modifier,</span>
+<span class="nc" id="L36">    viewModel: LoginViewModel = hiltViewModel(),</span>
+    openRegisterScreen: () -&gt; Unit,
+    openDashboardScreen: () -&gt; Unit
+<span class="nc bnc" id="L39" title="All 30 branches missed.">) {</span>
+<span class="nc" id="L40">    val state by viewModel.state.collectAsStateWithLifecycle()</span>
+<span class="nc" id="L41">    val context = LocalContext.current</span>
+
+<span class="nc bnc" id="L43" title="All 4 branches missed.">    LaunchedEffect(Unit) {</span>
+<span class="nc" id="L44">        viewModel.signal.collect {</span>
+<span class="nc" id="L45">            when (it) {</span>
+<span class="nc bnc" id="L46" title="All 2 branches missed.">                is LoginSignal.ShowToast -&gt;</span>
+<span class="nc" id="L47">                    context.showToast(it.message)</span>
+
+<span class="nc bnc" id="L49" title="All 2 branches missed.">                LoginSignal.NavigateToMain -&gt; openDashboardScreen()</span>
+
+<span class="nc" id="L51">                LoginSignal.NavigateToRegister -&gt; openRegisterScreen()</span>
+            }
+<span class="nc" id="L53">        }</span>
+    }
+
+<span class="nc bnc" id="L56" title="All 2 branches missed.">    LoginContent(</span>
+<span class="nc" id="L57">        modifier = modifier,</span>
+<span class="nc" id="L58">        state = state,</span>
+<span class="nc" id="L59">        onEvent = viewModel::onEvent</span>
+    )
+<span class="nc bnc" id="L61" title="All 2 branches missed.">}</span>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

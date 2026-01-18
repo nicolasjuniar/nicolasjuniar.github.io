@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PokemonRemoteMediator.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PokeApp Jetpack Compose</a> &gt; <a href="index.source.html" class="el_package">juniar.nicolas.pokeapp.jetpackcompose.core.data.paging</a> &gt; <span class="el_source">PokemonRemoteMediator.kt</span></div><h1>PokemonRemoteMediator.kt</h1><pre class="source lang-java linenums">package juniar.nicolas.pokeapp.jetpackcompose.core.data.paging
+
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.LoadType
+import androidx.paging.PagingState
+import androidx.paging.RemoteMediator
+import androidx.room.withTransaction
+import juniar.nicolas.pokeapp.jetpackcompose.core.data.api.PokeApi
+import juniar.nicolas.pokeapp.jetpackcompose.core.data.local.AppDatabase
+import juniar.nicolas.pokeapp.jetpackcompose.core.data.local.entity.PokemonEntity
+import juniar.nicolas.pokeapp.jetpackcompose.core.data.local.entity.PokemonRemoteKeys
+import retrofit2.HttpException
+import java.io.IOException
+
+private const val PAGE_SIZE = 10
+
+@OptIn(ExperimentalPagingApi::class)
+<span class="nc" id="L18">class PokemonRemoteMediator(</span>
+<span class="nc" id="L19">    private val pokeApi: PokeApi,</span>
+<span class="nc" id="L20">    private val appDatabase: AppDatabase</span>
+<span class="nc" id="L21">) : RemoteMediator&lt;Int, PokemonEntity&gt;() {</span>
+
+<span class="nc" id="L23">    override suspend fun load(</span>
+        loadType: LoadType,
+        state: PagingState&lt;Int, PokemonEntity&gt;
+    ): MediatorResult {
+<span class="nc" id="L27">        try {</span>
+<span class="nc bnc" id="L28" title="All 3 branches missed.">            val page = when (loadType) {</span>
+<span class="nc" id="L29">                LoadType.REFRESH -&gt; 0</span>
+                LoadType.PREPEND -&gt; {
+<span class="nc" id="L31">                    val remoteKeys = getRemoteKeyForFirstItem(state)</span>
+<span class="nc bnc" id="L32" title="All 4 branches missed.">                    val prevKey = remoteKeys?.prevKey</span>
+<span class="nc bnc" id="L33" title="All 2 branches missed.">                        ?: return MediatorResult.Success(endOfPaginationReached = remoteKeys != null)</span>
+<span class="nc" id="L34">                    prevKey</span>
+                }
+
+                LoadType.APPEND -&gt; {
+<span class="nc" id="L38">                    val remoteKeys = getRemoteKeyForLastItem(state)</span>
+<span class="nc bnc" id="L39" title="All 4 branches missed.">                    val nextKey = remoteKeys?.nextKey</span>
+<span class="nc bnc" id="L40" title="All 2 branches missed.">                        ?: return MediatorResult.Success(endOfPaginationReached = remoteKeys != null)</span>
+<span class="nc" id="L41">                    nextKey</span>
+                }
+            }
+
+<span class="nc" id="L45">            val response = pokeApi.getListPokemon(limit = PAGE_SIZE, offset = page * PAGE_SIZE)</span>
+<span class="nc" id="L46">            val results = response.results</span>
+
+<span class="nc" id="L48">            val endOfPagination = results.isEmpty()</span>
+
+<span class="nc bnc" id="L50" title="All 2 branches missed.">            appDatabase.withTransaction {</span>
+<span class="nc" id="L51">                val dao = appDatabase.pokemonDao()</span>
+<span class="nc" id="L52">                val remoteKeysDao = appDatabase.remoteKeysDao()</span>
+
+<span class="nc bnc" id="L54" title="All 2 branches missed.">                if (loadType == LoadType.REFRESH) {</span>
+<span class="nc" id="L55">                    remoteKeysDao.clearRemoteKeys()</span>
+<span class="nc" id="L56">                    dao.clearAll()</span>
+                }
+
+<span class="nc" id="L59">                val pokemonEntities = results.map { item -&gt;</span>
+<span class="nc" id="L60">                    val id = item.url.trimEnd('/').substringAfterLast('/').toInt()</span>
+<span class="nc" id="L61">                    PokemonEntity(</span>
+<span class="nc" id="L62">                        id = id,</span>
+<span class="nc" id="L63">                        name = item.name,</span>
+<span class="nc" id="L64">                        url = item.url</span>
+<span class="nc" id="L65">                    )</span>
+                }
+
+<span class="nc" id="L68">                val keys = pokemonEntities.map { entity -&gt;</span>
+<span class="nc" id="L69">                    PokemonRemoteKeys(</span>
+<span class="nc" id="L70">                        pokemonId = entity.id,</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">                        prevKey = if (page == 0) null else page - 1,</span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">                        nextKey = if (endOfPagination) null else page + 1</span>
+<span class="nc" id="L73">                    )</span>
+                }
+
+<span class="nc" id="L76">                remoteKeysDao.insertAll(keys)</span>
+<span class="nc" id="L77">                dao.insertAll(pokemonEntities)</span>
+<span class="nc" id="L78">            }</span>
+
+<span class="nc bnc" id="L80" title="All 2 branches missed.">            return MediatorResult.Success(endOfPaginationReached = endOfPagination)</span>
+<span class="nc" id="L81">        } catch (e: IOException) {</span>
+<span class="nc" id="L82">            return MediatorResult.Error(e)</span>
+<span class="nc" id="L83">        } catch (e: HttpException) {</span>
+<span class="nc" id="L84">            return MediatorResult.Error(e)</span>
+        }
+    }
+
+    private suspend fun getRemoteKeyForLastItem(state: PagingState&lt;Int, PokemonEntity&gt;): PokemonRemoteKeys? {
+<span class="nc bnc" id="L89" title="All 8 branches missed.">        return state.pages.lastOrNull { it.data.isNotEmpty() }?.data?.lastOrNull()?.let { pokemon -&gt;</span>
+<span class="nc bnc" id="L90" title="All 2 branches missed.">            appDatabase.remoteKeysDao().getRemoteKeys(pokemon.id)</span>
+        }
+    }
+
+    private suspend fun getRemoteKeyForFirstItem(state: PagingState&lt;Int, PokemonEntity&gt;): PokemonRemoteKeys? {
+<span class="nc bnc" id="L95" title="All 6 branches missed.">        return state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()</span>
+<span class="nc bnc" id="L96" title="All 2 branches missed.">            ?.let { pokemon -&gt;</span>
+<span class="nc bnc" id="L97" title="All 2 branches missed.">                appDatabase.remoteKeysDao().getRemoteKeys(pokemon.id)</span>
+            }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

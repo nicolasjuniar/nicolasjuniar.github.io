@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProfileContent.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PokeApp Jetpack Compose</a> &gt; <a href="index.source.html" class="el_package">juniar.nicolas.pokeapp.jetpackcompose.feature.dashboard.presentation.profile</a> &gt; <span class="el_source">ProfileContent.kt</span></div><h1>ProfileContent.kt</h1><pre class="source lang-java linenums">package juniar.nicolas.pokeapp.jetpackcompose.feature.dashboard.presentation.profile
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.CameraAlt
+import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Switch
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+import juniar.nicolas.pokeapp.jetpackcompose.core.ui.component.LoadingOverlay
+import juniar.nicolas.pokeapp.jetpackcompose.core.ui.theme.LavenderGrey
+import juniar.nicolas.pokeapp.jetpackcompose.core.ui.theme.SlatePurple
+
+<span class="nc bnc" id="L40" title="All 4 branches missed.">@Composable</span>
+fun ProfileContent(
+<span class="nc bnc" id="L42" title="All 2 branches missed.">    profileState: ProfileState = ProfileState(),</span>
+<span class="nc" id="L43">    onEvent: (ProfileEvent) -&gt; Unit = {}</span>
+<span class="nc bnc" id="L44" title="All 24 branches missed.">) {</span>
+<span class="nc" id="L45">    Column(</span>
+<span class="nc" id="L46">        modifier = Modifier</span>
+<span class="nc" id="L47">            .fillMaxSize()</span>
+<span class="nc" id="L48">            .padding(24.dp),</span>
+<span class="nc" id="L49">        horizontalAlignment = Alignment.CenterHorizontally</span>
+    ) {
+
+<span class="nc" id="L52">        Spacer(Modifier.height(20.dp))</span>
+
+<span class="nc" id="L54">        Box(</span>
+<span class="nc" id="L55">            modifier = Modifier</span>
+<span class="nc" id="L56">                .size(150.dp)</span>
+<span class="nc" id="L57">                .clickable(</span>
+<span class="nc" id="L58">                    indication = null,</span>
+<span class="nc" id="L59">                    interactionSource = remember { MutableInteractionSource() }</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">                ) { onEvent(ProfileEvent.ChangePictureClicked) },</span>
+<span class="nc" id="L61">            contentAlignment = Alignment.Center</span>
+        ) {
+<span class="nc bnc" id="L63" title="All 4 branches missed.">            if (profileState.imageUri.isNotEmpty()) {</span>
+<span class="nc" id="L64">                AsyncImage(</span>
+<span class="nc" id="L65">                    model = profileState.imageUri,</span>
+<span class="nc" id="L66">                    contentDescription = &quot;Profile Image&quot;,</span>
+<span class="nc" id="L67">                    modifier = Modifier</span>
+<span class="nc" id="L68">                        .size(150.dp)</span>
+<span class="nc" id="L69">                        .clip(CircleShape),</span>
+<span class="nc" id="L70">                    contentScale = ContentScale.Crop</span>
+                )
+<span class="nc" id="L72">            } else {</span>
+<span class="nc" id="L73">                Box(</span>
+<span class="nc" id="L74">                    modifier = Modifier</span>
+<span class="nc" id="L75">                        .size(150.dp)</span>
+<span class="nc" id="L76">                        .clip(CircleShape)</span>
+<span class="nc" id="L77">                        .background(LavenderGrey),</span>
+<span class="nc" id="L78">                    contentAlignment = Alignment.Center</span>
+                ) {
+<span class="nc" id="L80">                    Icon(</span>
+<span class="nc" id="L81">                        imageVector = Icons.Outlined.Person,</span>
+<span class="nc" id="L82">                        contentDescription = null,</span>
+<span class="nc" id="L83">                        modifier = Modifier.size(70.dp),</span>
+<span class="nc" id="L84">                        tint = SlatePurple</span>
+                    )
+<span class="nc" id="L86">                }</span>
+            }
+<span class="nc" id="L88">            Box(</span>
+<span class="nc" id="L89">                modifier = Modifier</span>
+<span class="nc" id="L90">                    .align(Alignment.BottomEnd)</span>
+<span class="nc" id="L91">                    .size(40.dp)</span>
+<span class="nc" id="L92">                    .clip(CircleShape)</span>
+<span class="nc" id="L93">                    .background(Color.White)</span>
+<span class="nc" id="L94">                    .border(1.dp, Color.LightGray, CircleShape),</span>
+<span class="nc" id="L95">                contentAlignment = Alignment.Center</span>
+            ) {
+<span class="nc" id="L97">                Icon(</span>
+<span class="nc" id="L98">                    imageVector = Icons.Outlined.CameraAlt,</span>
+<span class="nc" id="L99">                    contentDescription = null,</span>
+<span class="nc" id="L100">                    modifier = Modifier.size(22.dp),</span>
+<span class="nc" id="L101">                    tint = Color.Black</span>
+                )
+<span class="nc" id="L103">            }</span>
+<span class="nc" id="L104">        }</span>
+
+<span class="nc" id="L106">        Spacer(Modifier.height(24.dp))</span>
+
+<span class="nc" id="L108">        Row(</span>
+<span class="nc" id="L109">            modifier = Modifier</span>
+<span class="nc" id="L110">                .fillMaxWidth()</span>
+<span class="nc" id="L111">                .clip(RoundedCornerShape(12.dp))</span>
+<span class="nc" id="L112">                .background(MaterialTheme.colorScheme.surfaceVariant)</span>
+<span class="nc" id="L113">                .padding(horizontal = 16.dp, vertical = 12.dp),</span>
+<span class="nc" id="L114">            verticalAlignment = Alignment.CenterVertically</span>
+        ) {
+<span class="nc" id="L116">            Text(</span>
+<span class="nc" id="L117">                text = &quot;Dark Theme&quot;,</span>
+<span class="nc" id="L118">                style = MaterialTheme.typography.bodyLarge,</span>
+<span class="nc" id="L119">                modifier = Modifier.weight(1f)</span>
+            )
+
+<span class="nc" id="L122">            Switch(</span>
+<span class="nc" id="L123">                checked = profileState.isDarkTheme,</span>
+<span class="nc bnc" id="L124" title="All 2 branches missed.">                onCheckedChange = {</span>
+<span class="nc" id="L125">                    onEvent(ProfileEvent.UpdateIsDarkTheme(it))</span>
+<span class="nc" id="L126">                }</span>
+            )
+<span class="nc" id="L128">        }</span>
+
+<span class="nc" id="L130">        Spacer(Modifier.height(24.dp))</span>
+
+
+//        Spacer(Modifier.height(40.dp))
+
+<span class="nc" id="L135">        Button(</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">            onClick = { onEvent(ProfileEvent.ChangePasswordClicked) },</span>
+<span class="nc" id="L137">            modifier = Modifier.fillMaxWidth()</span>
+<span class="nc" id="L138">        ) {</span>
+<span class="nc bnc" id="L139" title="All 2 branches missed.">            Text(&quot;Change Password&quot;)</span>
+<span class="nc" id="L140">        }</span>
+<span class="nc" id="L141">    }</span>
+<span class="nc bnc" id="L142" title="All 4 branches missed.">    if (profileState.isLoading) {</span>
+<span class="nc" id="L143">        LoadingOverlay()</span>
+    }
+<span class="nc bnc" id="L145" title="All 2 branches missed.">}</span>
+
+<span class="nc" id="L147">@Preview</span>
+@Composable
+<span class="nc bnc" id="L149" title="All 6 branches missed.">fun ProfileContentPreview() {</span>
+<span class="nc bnc" id="L150" title="All 2 branches missed.">    ProfileContent()</span>
+<span class="nc bnc" id="L151" title="All 2 branches missed.">}</span>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

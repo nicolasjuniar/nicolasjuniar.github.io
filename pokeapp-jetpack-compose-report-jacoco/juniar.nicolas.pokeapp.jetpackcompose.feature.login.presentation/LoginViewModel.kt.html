@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LoginViewModel.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PokeApp Jetpack Compose</a> &gt; <a href="index.source.html" class="el_package">juniar.nicolas.pokeapp.jetpackcompose.feature.login.presentation</a> &gt; <span class="el_source">LoginViewModel.kt</span></div><h1>LoginViewModel.kt</h1><pre class="source lang-java linenums">package juniar.nicolas.pokeapp.jetpackcompose.feature.login.presentation
+
+import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import juniar.nicolas.pokeapp.jetpackcompose.core.common.BaseViewModel
+import juniar.nicolas.pokeapp.jetpackcompose.core.common.ResultWrapper
+import juniar.nicolas.pokeapp.jetpackcompose.core.domain.usecase.SaveLoggedUsernameUseCase
+import juniar.nicolas.pokeapp.jetpackcompose.feature.login.domain.LoginUseCase
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+
+@HiltViewModel
+<span class="fc" id="L13">class LoginViewModel @Inject constructor(</span>
+<span class="fc" id="L14">    private val loginUseCase: LoginUseCase,</span>
+<span class="fc" id="L15">    private val saveLoggedUsernameUseCase: SaveLoggedUsernameUseCase</span>
+<span class="fc" id="L16">) : BaseViewModel&lt;LoginState, LoginEvent, LoginSignal&gt;(LoginState()) {</span>
+
+    private fun login() {
+<span class="fc" id="L19">        viewModelScope.launch {</span>
+<span class="fc" id="L20">            setState { copy(isLoading = true) }</span>
+
+<span class="fc" id="L22">            val username = state.value.username</span>
+<span class="fc" id="L23">            val password = state.value.password</span>
+<span class="fc" id="L24">            val result = loginUseCase.invoke(username, password)</span>
+
+<span class="fc" id="L26">            setState { copy(isLoading = false) }</span>
+
+<span class="fc" id="L28">            when (result) {</span>
+<span class="fc bfc" id="L29" title="All 2 branches covered.">                is ResultWrapper.Success -&gt; {</span>
+<span class="fc" id="L30">                    saveLoggedUsernameUseCase.invoke(username)</span>
+<span class="fc" id="L31">                    sendSignal(</span>
+<span class="fc" id="L32">                        listOf(</span>
+<span class="fc" id="L33">                            LoginSignal.ShowToast(&quot;Login Successful&quot;),</span>
+<span class="fc" id="L34">                            LoginSignal.NavigateToMain</span>
+                        )
+                    )
+                }
+
+<span class="fc" id="L39">                is ResultWrapper.Error -&gt; {</span>
+<span class="fc" id="L40">                    sendSignal(LoginSignal.ShowToast(result.message))</span>
+                }
+            }
+<span class="fc" id="L43">        }</span>
+<span class="fc" id="L44">    }</span>
+
+    override fun handleEvent(event: LoginEvent) {
+<span class="fc" id="L47">        when (event) {</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">            is LoginEvent.UsernameChanged -&gt; {</span>
+<span class="fc" id="L49">                setState {</span>
+<span class="fc" id="L50">                    copy(</span>
+<span class="fc" id="L51">                        username = event.value,</span>
+<span class="pc bpc" id="L52" title="4 of 8 branches missed.">                        isButtonEnabled = event.value.isNotBlank() &amp;&amp; password.isNotBlank()</span>
+<span class="fc" id="L53">                    )</span>
+                }
+            }
+
+<span class="fc bfc" id="L57" title="All 2 branches covered.">            is LoginEvent.PasswordChanged -&gt; {</span>
+<span class="fc" id="L58">                setState {</span>
+<span class="fc" id="L59">                    copy(</span>
+<span class="fc" id="L60">                        password = event.value,</span>
+<span class="pc bpc" id="L61" title="4 of 8 branches missed.">                        isButtonEnabled = username.isNotBlank() &amp;&amp; event.value.isNotBlank()</span>
+<span class="fc" id="L62">                    )</span>
+                }
+            }
+
+<span class="fc bfc" id="L66" title="All 2 branches covered.">            LoginEvent.LoginButtonClicked -&gt; login()</span>
+
+<span class="fc" id="L68">            LoginEvent.RegisterTextClicked -&gt; {</span>
+<span class="fc" id="L69">                viewModelScope.launch {</span>
+                    sendSignal(LoginSignal.NavigateToRegister)
+                }
+            }
+        }
+<span class="fc" id="L74">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

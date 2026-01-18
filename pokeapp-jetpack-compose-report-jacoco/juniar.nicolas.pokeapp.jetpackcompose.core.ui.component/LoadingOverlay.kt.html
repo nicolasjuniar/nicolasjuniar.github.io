@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LoadingOverlay.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PokeApp Jetpack Compose</a> &gt; <a href="index.source.html" class="el_package">juniar.nicolas.pokeapp.jetpackcompose.core.ui.component</a> &gt; <span class="el_source">LoadingOverlay.kt</span></div><h1>LoadingOverlay.kt</h1><pre class="source lang-java linenums">package juniar.nicolas.pokeapp.jetpackcompose.core.ui.component
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+
+<span class="nc" id="L12">@Composable</span>
+<span class="nc bnc" id="L13" title="All 6 branches missed.">fun LoadingOverlay() {</span>
+<span class="nc" id="L14">    Box(</span>
+<span class="nc" id="L15">        modifier = Modifier</span>
+<span class="nc" id="L16">            .fillMaxSize()</span>
+<span class="nc" id="L17">            .background(Color.Black.copy(alpha = 0.3f)),</span>
+<span class="nc" id="L18">        contentAlignment = Alignment.Center</span>
+    ) {
+<span class="nc" id="L20">        CircularProgressIndicator()</span>
+<span class="nc" id="L21">    }</span>
+<span class="nc bnc" id="L22" title="All 2 branches missed.">}</span>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

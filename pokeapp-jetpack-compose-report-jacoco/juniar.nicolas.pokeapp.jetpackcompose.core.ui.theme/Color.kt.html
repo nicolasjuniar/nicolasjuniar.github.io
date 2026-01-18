@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Color.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PokeApp Jetpack Compose</a> &gt; <a href="index.source.html" class="el_package">juniar.nicolas.pokeapp.jetpackcompose.core.ui.theme</a> &gt; <span class="el_source">Color.kt</span></div><h1>Color.kt</h1><pre class="source lang-java linenums">package juniar.nicolas.pokeapp.jetpackcompose.core.ui.theme
+
+import androidx.compose.ui.graphics.Color
+
+<span class="nc" id="L5">val Purple80 = Color(0xFFD0BCFF)</span>
+<span class="nc" id="L6">val PurpleGrey80 = Color(0xFFCCC2DC)</span>
+<span class="nc" id="L7">val Pink80 = Color(0xFFEFB8C8)</span>
+
+<span class="nc" id="L9">val Purple40 = Color(0xFF6650a4)</span>
+<span class="nc" id="L10">val PurpleGrey40 = Color(0xFF625b71)</span>
+<span class="nc" id="L11">val Pink40 = Color(0xFF7D5260)</span>
+
+<span class="nc" id="L13">val LavenderGrey = Color(0xFFE0DCEB)</span>
+<span class="nc" id="L14">val SlatePurple = Color(0xFF4B4453)</span>
+<span class="nc" id="L15">val Charcoal = Color(0xFF222222)</span>
+
+
+fun typeColor(type: String?): Color {
+<span class="nc bnc" id="L19" title="All 23 branches missed.">    return when (type?.lowercase()) {</span>
+<span class="nc" id="L20">        &quot;normal&quot; -&gt; Color(0xFFA1A1A1)</span>
+<span class="nc" id="L21">        &quot;fire&quot; -&gt; Color(0xFFD53A30)</span>
+<span class="nc" id="L22">        &quot;fighting&quot; -&gt; Color(0xFFF08833)</span>
+<span class="nc" id="L23">        &quot;water&quot; -&gt; Color(0xFF4C79BC)</span>
+<span class="nc" id="L24">        &quot;flying&quot; -&gt; Color(0xFF8EB8E4)</span>
+<span class="nc" id="L25">        &quot;grass&quot; -&gt; Color(0xFF5D9D3C)</span>
+<span class="nc" id="L26">        &quot;ghost&quot; -&gt; Color(0xFF6D4B97)</span>
+<span class="nc" id="L27">        &quot;electric&quot; -&gt; Color(0xFFF2C341)</span>
+<span class="nc" id="L28">        &quot;ground&quot; -&gt; Color(0xFF895229)</span>
+<span class="nc" id="L29">        &quot;psychic&quot; -&gt; Color(0xFFDC4D79)</span>
+<span class="nc" id="L30">        &quot;rock&quot; -&gt; Color(0xFFADA984)</span>
+<span class="nc" id="L31">        &quot;ice&quot; -&gt; Color(0xFF78CCF0)</span>
+<span class="nc" id="L32">        &quot;bug&quot; -&gt; Color(0xFF95A135)</span>
+<span class="nc" id="L33">        &quot;dragon&quot; -&gt; Color(0xFF4C60A9)</span>
+<span class="nc" id="L34">        &quot;poison&quot; -&gt; Color(0xFF6B426D)</span>
+<span class="nc" id="L35">        &quot;dark&quot; -&gt; Color(0xFF4E403F)</span>
+<span class="nc" id="L36">        &quot;steel&quot; -&gt; Color(0xFF74A2B9)</span>
+<span class="nc" id="L37">        &quot;fairy&quot; -&gt; Color(0xFFBA80B5)</span>
+<span class="nc" id="L38">        else -&gt; Color(0xFFEEEEEE)</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CameraContent.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PokeApp Jetpack Compose</a> &gt; <a href="index.source.html" class="el_package">juniar.nicolas.pokeapp.jetpackcompose.feature.camera</a> &gt; <span class="el_source">CameraContent.kt</span></div><h1>CameraContent.kt</h1><pre class="source lang-java linenums">package juniar.nicolas.pokeapp.jetpackcompose.feature.camera
+
+import android.net.Uri
+import android.widget.Toast
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageCapture
+import androidx.camera.core.ImageCaptureException
+import androidx.camera.view.LifecycleCameraController
+import androidx.camera.view.PreviewView
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.CameraAlt
+import androidx.compose.material.icons.filled.Cameraswitch
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import java.io.File
+
+<span class="nc" id="L36">@Composable</span>
+fun CameraContent(
+    onBack: () -&gt; Unit,
+    onPhotoTaken: (Uri) -&gt; Unit
+<span class="nc bnc" id="L40" title="All 14 branches missed.">) {</span>
+<span class="nc" id="L41">    val context = LocalContext.current</span>
+<span class="nc" id="L42">    val lifecycleOwner = LocalLifecycleOwner.current</span>
+
+<span class="nc" id="L44">    val controller = remember {</span>
+<span class="nc" id="L45">        LifecycleCameraController(context).apply {</span>
+<span class="nc" id="L46">            cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA</span>
+<span class="nc" id="L47">        }</span>
+    }
+
+<span class="nc bnc" id="L50" title="All 2 branches missed.">    LaunchedEffect(Unit) {</span>
+<span class="nc" id="L51">        controller.bindToLifecycle(lifecycleOwner)</span>
+<span class="nc" id="L52">    }</span>
+
+<span class="nc" id="L54">    Box(modifier = Modifier.fillMaxSize()) {</span>
+
+<span class="nc" id="L56">        AndroidView(</span>
+<span class="nc" id="L57">            factory = {</span>
+<span class="nc" id="L58">                PreviewView(it).apply {</span>
+<span class="nc" id="L59">                    scaleType = PreviewView.ScaleType.FILL_CENTER</span>
+<span class="nc" id="L60">                    this.controller = controller</span>
+<span class="nc" id="L61">                }</span>
+            },
+<span class="nc" id="L63">            modifier = Modifier.fillMaxSize()</span>
+        )
+
+        // Back Button
+<span class="nc" id="L67">        IconButton(</span>
+<span class="nc" id="L68">            onClick = onBack,</span>
+<span class="nc" id="L69">            modifier = Modifier</span>
+<span class="nc" id="L70">                .padding(16.dp)</span>
+<span class="nc" id="L71">                .align(Alignment.TopStart)</span>
+<span class="nc" id="L72">                .background(Color.Black.copy(alpha = 0.4f), CircleShape)</span>
+<span class="nc" id="L73">        ) {</span>
+<span class="nc bnc" id="L74" title="All 2 branches missed.">            Icon(</span>
+<span class="nc" id="L75">                Icons.AutoMirrored.Default.ArrowBack,</span>
+<span class="nc" id="L76">                contentDescription = null,</span>
+<span class="nc" id="L77">                tint = Color.White</span>
+            )
+<span class="nc" id="L79">        }</span>
+
+        // Switch Camera
+<span class="nc" id="L82">        IconButton(</span>
+<span class="nc" id="L83">            onClick = {</span>
+<span class="nc" id="L84">                controller.cameraSelector =</span>
+<span class="nc bnc" id="L85" title="All 2 branches missed.">                    if (controller.cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA)</span>
+<span class="nc" id="L86">                        CameraSelector.DEFAULT_FRONT_CAMERA</span>
+                    else
+<span class="nc" id="L88">                        CameraSelector.DEFAULT_BACK_CAMERA</span>
+<span class="nc" id="L89">            },</span>
+<span class="nc" id="L90">            modifier = Modifier</span>
+<span class="nc" id="L91">                .padding(16.dp)</span>
+<span class="nc" id="L92">                .align(Alignment.TopEnd)</span>
+<span class="nc" id="L93">                .background(Color.Black.copy(alpha = 0.4f), CircleShape)</span>
+<span class="nc" id="L94">        ) {</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">            Icon(Icons.Default.Cameraswitch, contentDescription = null, tint = Color.White)</span>
+<span class="nc" id="L96">        }</span>
+
+        // Capture Button
+<span class="nc" id="L99">        IconButton(</span>
+<span class="nc bnc" id="L100" title="All 2 branches missed.">            onClick = {</span>
+<span class="nc" id="L101">                val photoFile = File(</span>
+<span class="nc" id="L102">                    context.cacheDir,</span>
+<span class="nc" id="L103">                    &quot;captured_${System.currentTimeMillis()}.jpg&quot;</span>
+                )
+
+<span class="nc" id="L106">                val output = ImageCapture.OutputFileOptions.Builder(photoFile).build()</span>
+
+<span class="nc" id="L108">                controller.takePicture(</span>
+<span class="nc" id="L109">                    output,</span>
+<span class="nc" id="L110">                    ContextCompat.getMainExecutor(context),</span>
+<span class="nc" id="L111">                    object : ImageCapture.OnImageSavedCallback {</span>
+                        override fun onError(exc: ImageCaptureException) {
+<span class="nc" id="L113">                            Toast.makeText(context, &quot;Failed: ${exc.message}&quot;, Toast.LENGTH_SHORT)</span>
+<span class="nc" id="L114">                                .show()</span>
+<span class="nc" id="L115">                        }</span>
+
+                        override fun onImageSaved(result: ImageCapture.OutputFileResults) {
+<span class="nc" id="L118">                            val uri = FileProvider.getUriForFile(</span>
+<span class="nc" id="L119">                                context,</span>
+<span class="nc" id="L120">                                &quot;${context.packageName}.provider&quot;,</span>
+<span class="nc" id="L121">                                photoFile</span>
+                            )
+<span class="nc" id="L123">                            onPhotoTaken(uri)</span>
+<span class="nc" id="L124">                        }</span>
+                    }
+                )
+<span class="nc" id="L127">            },</span>
+<span class="nc" id="L128">            modifier = Modifier</span>
+<span class="nc" id="L129">                .align(Alignment.BottomCenter)</span>
+<span class="nc" id="L130">                .padding(bottom = 32.dp)</span>
+<span class="nc" id="L131">                .size(90.dp)</span>
+<span class="nc" id="L132">                .background(Color.White.copy(alpha = 0.3f), CircleShape)</span>
+<span class="nc" id="L133">        ) {</span>
+<span class="nc bnc" id="L134" title="All 2 branches missed.">            Icon(Icons.Default.CameraAlt, contentDescription = null, tint = Color.White)</span>
+<span class="nc" id="L135">        }</span>
+<span class="nc" id="L136">    }</span>
+<span class="nc bnc" id="L137" title="All 2 branches missed.">}</span>
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

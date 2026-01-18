@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LoginContent.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PokeApp Jetpack Compose</a> &gt; <a href="index.source.html" class="el_package">juniar.nicolas.pokeapp.jetpackcompose.feature.login.presentation</a> &gt; <span class="el_source">LoginContent.kt</span></div><h1>LoginContent.kt</h1><pre class="source lang-java linenums">package juniar.nicolas.pokeapp.jetpackcompose.feature.login.presentation
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import juniar.nicolas.pokeapp.jetpackcompose.core.ui.component.LoadingOverlay
+import juniar.nicolas.pokeapp.jetpackcompose.core.ui.component.PasswordTextField
+
+<span class="nc bnc" id="L28" title="All 4 branches missed.">@Composable</span>
+fun LoginContent(
+<span class="nc bnc" id="L30" title="All 2 branches missed.">    modifier: Modifier = Modifier,</span>
+<span class="nc bnc" id="L31" title="All 2 branches missed.">    state: LoginState = LoginState(),</span>
+<span class="nc" id="L32">    onEvent: (LoginEvent) -&gt; Unit = {}</span>
+<span class="nc bnc" id="L33" title="All 28 branches missed.">) {</span>
+<span class="nc" id="L34">    val focusManager = LocalFocusManager.current</span>
+
+<span class="nc" id="L36">    Surface(modifier = modifier.fillMaxSize()) {</span>
+<span class="nc" id="L37">        Column(</span>
+<span class="nc" id="L38">            modifier = Modifier</span>
+<span class="nc" id="L39">                .padding(24.dp)</span>
+<span class="nc" id="L40">                .fillMaxWidth(),</span>
+<span class="nc" id="L41">            horizontalAlignment = Alignment.CenterHorizontally,</span>
+<span class="nc" id="L42">            verticalArrangement = Arrangement.Center</span>
+        ) {
+<span class="nc" id="L44">            Text(</span>
+<span class="nc" id="L45">                text = &quot;Welcome Back&quot;,</span>
+<span class="nc" id="L46">                style = MaterialTheme.typography.titleLarge</span>
+            )
+
+<span class="nc" id="L49">            Spacer(modifier = Modifier.height(16.dp))</span>
+
+<span class="nc" id="L51">            OutlinedTextField(</span>
+<span class="nc" id="L52">                value = state.username,</span>
+<span class="nc" id="L53">                onValueChange = {</span>
+<span class="nc" id="L54">                    onEvent(LoginEvent.UsernameChanged(it))</span>
+<span class="nc" id="L55">                },</span>
+<span class="nc" id="L56">                modifier = Modifier.fillMaxWidth(),</span>
+<span class="nc bnc" id="L57" title="All 2 branches missed.">                label = { Text(&quot;Username&quot;) },</span>
+<span class="nc" id="L58">                singleLine = true,</span>
+<span class="nc" id="L59">                keyboardOptions = KeyboardOptions(</span>
+<span class="nc" id="L60">                    keyboardType = KeyboardType.Text,</span>
+<span class="nc" id="L61">                    imeAction = ImeAction.Next</span>
+                )
+            )
+
+<span class="nc" id="L65">            Spacer(modifier = Modifier.height(8.dp))</span>
+
+<span class="nc" id="L67">            PasswordTextField(</span>
+<span class="nc" id="L68">                value = state.password,</span>
+<span class="nc" id="L69">                onValueChange = {</span>
+<span class="nc" id="L70">                    onEvent(LoginEvent.PasswordChanged(it))</span>
+<span class="nc" id="L71">                },</span>
+<span class="nc" id="L72">                label = &quot;Password&quot;</span>
+            )
+
+<span class="nc" id="L75">            Spacer(modifier = Modifier.height(20.dp))</span>
+
+<span class="nc" id="L77">            Button(</span>
+<span class="nc" id="L78">                onClick = {</span>
+<span class="nc" id="L79">                    focusManager.clearFocus()</span>
+<span class="nc" id="L80">                    onEvent(LoginEvent.LoginButtonClicked)</span>
+<span class="nc" id="L81">                },</span>
+<span class="nc" id="L82">                modifier = Modifier</span>
+<span class="nc" id="L83">                    .fillMaxWidth()</span>
+<span class="nc" id="L84">                    .height(48.dp),</span>
+<span class="nc" id="L85">                enabled = state.isButtonEnabled</span>
+<span class="nc" id="L86">            ) {</span>
+<span class="nc bnc" id="L87" title="All 2 branches missed.">                Text(text = &quot;Login&quot;)</span>
+<span class="nc" id="L88">            }</span>
+
+<span class="nc" id="L90">            Spacer(modifier = Modifier.height(8.dp))</span>
+
+<span class="nc" id="L92">            TextButton(onClick = {</span>
+<span class="nc" id="L93">                onEvent(LoginEvent.RegisterTextClicked)</span>
+<span class="nc" id="L94">            }) {</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">                Text(text = &quot;Don't have an account? Register&quot;)</span>
+<span class="nc" id="L96">            }</span>
+<span class="nc" id="L97">        }</span>
+<span class="nc" id="L98">    }</span>
+
+<span class="nc bnc" id="L100" title="All 4 branches missed.">    if (state.isLoading) {</span>
+<span class="nc" id="L101">        LoadingOverlay()</span>
+    }
+<span class="nc bnc" id="L103" title="All 2 branches missed.">}</span>
+
+<span class="nc" id="L105">@Preview</span>
+@Composable
+<span class="nc bnc" id="L107" title="All 6 branches missed.">fun LoginContentPreview() {</span>
+<span class="nc bnc" id="L108" title="All 2 branches missed.">    LoginContent()</span>
+<span class="nc bnc" id="L109" title="All 2 branches missed.">}</span>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

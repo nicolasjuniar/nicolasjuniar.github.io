@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RegistrationViewModel.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PokeApp Jetpack Compose</a> &gt; <a href="index.source.html" class="el_package">juniar.nicolas.pokeapp.jetpackcompose.feature.registration.presentation</a> &gt; <span class="el_source">RegistrationViewModel.kt</span></div><h1>RegistrationViewModel.kt</h1><pre class="source lang-java linenums">package juniar.nicolas.pokeapp.jetpackcompose.feature.registration.presentation
+
+import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import juniar.nicolas.pokeapp.jetpackcompose.core.common.BaseViewModel
+import juniar.nicolas.pokeapp.jetpackcompose.core.common.CommonConstant.PASSWORD_LENGTH
+import juniar.nicolas.pokeapp.jetpackcompose.core.common.ResultWrapper
+import juniar.nicolas.pokeapp.jetpackcompose.core.domain.usecase.SaveLoggedUsernameUseCase
+import juniar.nicolas.pokeapp.jetpackcompose.feature.registration.domain.RegisterUseCase
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+
+@HiltViewModel
+<span class="fc" id="L14">class RegistrationViewModel @Inject constructor(</span>
+<span class="fc" id="L15">    private val registerUseCase: RegisterUseCase,</span>
+<span class="fc" id="L16">    private val saveLoggedUsernameUseCase: SaveLoggedUsernameUseCase</span>
+<span class="fc" id="L17">) : BaseViewModel&lt;RegistrationState, RegistrationEvent, RegistrationSignal&gt;(RegistrationState()) {</span>
+
+    fun register() {
+<span class="fc" id="L20">        viewModelScope.launch {</span>
+
+<span class="fc" id="L22">            setState { copy(isLoading = true) }</span>
+
+<span class="fc" id="L24">            val username = state.value.username</span>
+<span class="fc" id="L25">            val password = state.value.password</span>
+<span class="fc" id="L26">            val result = registerUseCase.invoke(username, password)</span>
+
+<span class="fc" id="L28">            setState { copy(isLoading = false) }</span>
+
+<span class="fc" id="L30">            when (result) {</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">                is ResultWrapper.Success -&gt; {</span>
+<span class="fc" id="L32">                    saveLoggedUsernameUseCase.invoke(username)</span>
+<span class="fc" id="L33">                    sendSignal(</span>
+<span class="fc" id="L34">                        listOf(</span>
+<span class="fc" id="L35">                            RegistrationSignal.ShowToast(&quot;RegisterSuccessful&quot;),</span>
+<span class="fc" id="L36">                            RegistrationSignal.NavigateToMain</span>
+                        )
+                    )
+                }
+
+<span class="fc" id="L41">                is ResultWrapper.Error -&gt; {</span>
+<span class="fc" id="L42">                    sendSignal(RegistrationSignal.ShowToast(result.message))</span>
+                }
+            }
+<span class="fc" id="L45">        }</span>
+<span class="fc" id="L46">    }</span>
+
+    private fun updateIsButtonEnabled(state: RegistrationState): Boolean {
+<span class="pc bpc" id="L49" title="2 of 4 branches missed.">        return state.username.isNotBlank() &amp;&amp;</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">                state.password.length &gt;= PASSWORD_LENGTH &amp;&amp;</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">                state.confirmPassword == state.password</span>
+    }
+
+    private fun updateRegisterState(reducer: RegistrationState.() -&gt; RegistrationState) {
+<span class="fc" id="L55">        setState {</span>
+<span class="fc" id="L56">            val newState = reducer()</span>
+<span class="fc" id="L57">            newState.copy(isButtonEnabled = updateIsButtonEnabled(newState))</span>
+        }
+<span class="fc" id="L59">    }</span>
+
+    override fun handleEvent(event: RegistrationEvent) {
+<span class="fc" id="L62">        when (event) {</span>
+<span class="fc bfc" id="L63" title="All 2 branches covered.">            is RegistrationEvent.UsernameChanged -&gt; {</span>
+<span class="fc" id="L64">                updateRegisterState {</span>
+<span class="fc" id="L65">                    copy(</span>
+<span class="fc" id="L66">                        username = event.value</span>
+<span class="fc" id="L67">                    )</span>
+                }
+            }
+
+<span class="fc bfc" id="L71" title="All 2 branches covered.">            is RegistrationEvent.PasswordChanged -&gt; {</span>
+<span class="fc" id="L72">                updateRegisterState {</span>
+<span class="fc" id="L73">                    copy(</span>
+<span class="fc" id="L74">                        password = event.value</span>
+<span class="fc" id="L75">                    )</span>
+                }
+            }
+
+<span class="fc bfc" id="L79" title="All 2 branches covered.">            is RegistrationEvent.ConfirmPasswordChanged -&gt; {</span>
+<span class="fc" id="L80">                updateRegisterState {</span>
+<span class="fc" id="L81">                    copy(</span>
+<span class="fc" id="L82">                        confirmPassword = event.value</span>
+<span class="fc" id="L83">                    )</span>
+                }
+            }
+
+<span class="pc bpc" id="L87" title="1 of 2 branches missed.">            RegistrationEvent.RegisterButtonClicked -&gt; register()</span>
+
+<span class="nc" id="L89">            RegistrationEvent.LoginTextClicked -&gt; {</span>
+<span class="nc" id="L90">                viewModelScope.launch {</span>
+                    sendSignal(RegistrationSignal.NavigateToLogin)
+                }
+            }
+        }
+<span class="fc" id="L95">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
